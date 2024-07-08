@@ -124,6 +124,8 @@ def page3():
 
     BMIRange = st.radio('Berdasarkan perhitungan BMI, Anda termasuk dalam kategori apa? (Normal BMI<=25.0, OverWeight BMI > 25.0)', ['Normal', 'Overweight'])
     
+    
+
     if BMIRange == "Normal":
         BMIRange = 0
     elif BMIRange == "Overweight":
@@ -139,10 +141,15 @@ def page3():
         if st.button('Kembali', use_container_width=True):
             st.session_state.page_number = 2
             st.experimental_rerun()
-    
-    st.write("BB = Berat Badan (Kg)")
-    st.write("TB = Tinggi Badan (m))")
-    st.write("Perhitungan BMI = BB : (TB x TB)")
+            
+    TBCol,BBCol = st.columns([1,1])
+    with TBCol:
+        BeratBadan = st.number_input("Masukkan Berat Badan Anda (kg)")
+    with BBCol :
+        TinggiBadan = st.number_input("Masukkan Tinggi Badan Anda (m)")
+    if TinggiBadan > 0:
+        hitungBMI = BeratBadan / (TinggiBadan ** 2)
+        st.write(f"Indeks Massa Tubuh (BMI) Anda adalah: {hitungBMI:.2f}")
 
 def page4():
     st.markdown("""
@@ -152,7 +159,7 @@ def page4():
         </div>
     """, unsafe_allow_html=True)
 
-    DailyShouting = st.select_slider('SEBERAPA SERING KAMU BERTERIAK ATAU MERAJUK PADA SESEORANG?', 
+    DailyShouting = st.selectbox('SEBERAPA SERING KAMU BERTERIAK ATAU MERAJUK PADA SESEORANG?', 
                                      options=["Tidak Pernah", "Hampir Tidak Pernah", "Jarang", "Sangat Jarang", "Kadang-Kadang", "Sering", "Sangat Sering", "Biasanya","Hampir Selalu", "Selalu"])
     if DailyShouting == "Tidak Pernah" :
         DailyShouting = 1
@@ -194,8 +201,29 @@ def page5():
         </div>
     """, unsafe_allow_html=True)
 
-    DailySteps = st.slider('BERAPA LANGKAH YANG BIASANYA ANDA BERJALAN SETIAP HARI? (1000 Langkah = 1)', min_value=1, max_value=10, value=5)
+    DailySteps = st.selectbox('BERAPA LANGKAH YANG BIASANYA ANDA BERJALAN SETIAP HARI?', options=["1000","2000","3000","4000","5000","6000","7000","8000","9000","10000"])
     
+    if DailySteps == "1000" :
+        DailySteps = 1
+    elif DailySteps == "2000" :
+        DailySteps = 2
+    elif DailySteps == "3000" :
+        DailySteps = 3
+    elif DailySteps == "4000" :
+        DailySteps = 4
+    elif DailySteps == "5000" :
+        DailySteps = 5
+    elif DailySteps == "6000" :
+        DailySteps = 6
+    elif DailySteps == "7000" :
+        DailySteps = 7
+    elif DailySteps == "8000" :
+        DailySteps = 8
+    elif DailySteps == "9000" :
+        DailySteps = 9
+    elif DailySteps == "10000" :
+        DailySteps = 10
+
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
         if st.button('Selanjutnya', use_container_width=True):
@@ -215,7 +243,7 @@ def page6():
         </div>
     """, unsafe_allow_html=True)
 
-    SleepHours = st.slider('BERAPA LAMA ANDA BIASANYA TIDUR? (Dalam Jam)', min_value=1, max_value=10, value=5)
+    SleepHours = st.selectbox('BERAPA LAMA ANDA BIASANYA TIDUR? (Dalam Jam)', options=[1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -236,7 +264,17 @@ def page7():
         </div>
     """, unsafe_allow_html=True)
 
-    FruitsVeggies = st.slider('BERAPA BANYAK BUAH ATAU SAYUR YANG ANDA MAKAN SETIAP HARI? (Dalam Jumlah)', min_value=1, max_value=5, value=3)
+    FruitsVeggies = st.radio('BERAPA BANYAK BUAH ATAU SAYUR YANG ANDA MAKAN SETIAP HARI? (Dalam Jumlah)', options=["Sangat Sedikit", "Sedikit", "Sedang", "Banyak", "Sangat Banyak"])
+    if FruitsVeggies == "Sangat Sedikit" :
+        FruitsVeggies = 1
+    elif FruitsVeggies == "Sedikit" :
+        FruitsVeggies = 2
+    elif FruitsVeggies == "Sedang" :
+        FruitsVeggies = 3
+    elif FruitsVeggies == "Banyak" :
+        FruitsVeggies = 4
+    elif FruitsVeggies == "Sangat Banyak" :
+        FruitsVeggies = 5
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -257,7 +295,7 @@ def page8():
         </div>
     """, unsafe_allow_html=True)
 
-    TimeForPassion = st.slider('BERAPA JAM YANG ANDA HABISKAN SETIAP HARI UNTUK MELAKUKAN APA YANG ANDA INGINKAN? (Dalam Jam)', min_value=1, max_value=10, value=5)
+    TimeForPassion = st.selectbox('BERAPA JAM YANG ANDA HABISKAN SETIAP HARI UNTUK MELAKUKAN APA YANG ANDA INGINKAN? (Dalam Jam)', options=[1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -278,7 +316,7 @@ def page9():
         </div>
     """, unsafe_allow_html=True)
 
-    WeeklyMeditation = st.select_slider('DALAM SEMINGGU, SEBERAPA SERING ANDA PUNYA KESEMPATAN UNTUK BERPIKIR TENTANG DIRI SENDIRI?', 
+    WeeklyMeditation = st.selectbox('DALAM SEMINGGU, SEBERAPA SERING ANDA PUNYA KESEMPATAN UNTUK BERPIKIR TENTANG DIRI SENDIRI?', 
                                         options=["Tidak Pernah", "Hampir Tidak Pernah", "Jarang", "Sangat Jarang", "Kadang-Kadang", "Sering", "Sangat Sering", "Biasanya","Hampir Selalu", "Selalu"])
     
     if WeeklyMeditation == "Tidak Pernah" :
@@ -321,7 +359,7 @@ def page10():
         </div>
     """, unsafe_allow_html=True)
 
-    ToDoCompleted = st.select_slider('SEBERAPA SERING ANDA MENYELESAIKAN DAFTAR YANG HARUS DILAKUKAN MINGGUAN?', 
+    ToDoCompleted = st.selectbox('SEBERAPA SERING ANDA MENYELESAIKAN DAFTAR YANG HARUS DILAKUKAN MINGGUAN?', 
                                      options=["Tidak Pernah", "Hampir Tidak Pernah", "Jarang", "Sangat Jarang", "Kadang-Kadang", "Sering", "Sangat Sering", "Biasanya","Hampir Selalu", "Selalu"])
     
     if ToDoCompleted == "Tidak Pernah" :
@@ -364,7 +402,7 @@ def page11():
         </div>
     """, unsafe_allow_html=True)
 
-    CoreCircle = st.slider('BERAPA BANYAK ORANG YANG SANGAT DEKAT DENGAN ANDA?', min_value=1, max_value=10, value=5)
+    CoreCircle = st.selectbox('BERAPA BANYAK ORANG YANG SANGAT DEKAT DENGAN ANDA?', options=[1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -385,7 +423,7 @@ def page12():
         </div>
     """, unsafe_allow_html=True)
 
-    Achievement = st.slider('BERAPA PENCAPAIAN LUAR BIASA YANG ANDA BANGGAKAN?', min_value=0, max_value=10, value=5)
+    Achievement = st.selectbox('BERAPA PENCAPAIAN LUAR BIASA YANG ANDA BANGGAKAN?', options=[0,1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -406,7 +444,7 @@ def page13():
         </div>
     """, unsafe_allow_html=True)
 
-    Flow = st.slider('DALAM SEHARI, BERAPA JAM ANDA MERASA HANYA MENGIKUTI ALUR? (MELAKUKAN HAL YANG SAMA DENGAN HARI SEBELUMNYA)', min_value=0, max_value=10, value=5)
+    Flow = st.selectbox('DALAM SEHARI, BERAPA JAM ANDA MERASA HANYA MENGIKUTI ALUR? (MELAKUKAN HAL YANG SAMA DENGAN HARI SEBELUMNYA, DALAM JAM)', options=[0,1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -427,7 +465,7 @@ def page14():
         </div>
     """, unsafe_allow_html=True)
 
-    PersonalAwards = st.slider('BERAPA BANYAK PENGAKUAN YANG TELAH ANDA TERIMA DALAM HIDUP ANDA? (PENCAPAIAN HIDUP)', min_value=0, max_value=10, value=5)
+    PersonalAwards = st.selectbox('BERAPA BANYAK PENGAKUAN YANG TELAH ANDA TERIMA DALAM HIDUP ANDA? (PENCAPAIAN HIDUP)', options=[0,1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -448,7 +486,7 @@ def page15():
         </div>
     """, unsafe_allow_html=True)
 
-    LiveVision = st.slider('SEBERAPA JAUH ANDA MEMILIKI PANDANGAN TENTANG HIDUP ANDA KEDEPANNYA? (DALAM TAHUN)', min_value=0, max_value=10, value=5)
+    LiveVision = st.selectbox('SEBERAPA JAUH ANDA MEMILIKI PANDANGAN TENTANG HIDUP ANDA KEDEPANNYA? (DALAM TAHUN)', options=[0,1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -469,7 +507,7 @@ def page16():
         </div>
     """, unsafe_allow_html=True)
 
-    PlacesVisited = st.slider('BERAPA BANYAK TEMPAT BARU YANG ANDA KUNJUNGI DALAM TIGA BULAN TERAKHIR?', min_value=0, max_value=10, value=5)
+    PlacesVisited = st.selectbox('BERAPA BANYAK TEMPAT BARU YANG ANDA KUNJUNGI DALAM TIGA BULAN TERAKHIR?', options=[0,1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -490,7 +528,7 @@ def page17():
         </div>
     """, unsafe_allow_html=True)
 
-    SupportingOthers = st.slider('BERAPA BANYAK ORANG YANG ANDA BANTU MENCAPAI HIDUP YANG LEBIH BAIK? (MEMBERI BANTUAN SARAN, DANA, DLL)', min_value=0, max_value=10, value=5)
+    SupportingOthers = st.selectbox('BERAPA BANYAK ORANG YANG ANDA BANTU MENCAPAI HIDUP YANG LEBIH BAIK? (MEMBERI BANTUAN SARAN, DANA, DLL)', options=[0,1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -511,7 +549,7 @@ def page18():
         </div>
     """, unsafe_allow_html=True)
 
-    SocialNetwork = st.slider('BIASANYA BERAPA BANYAK ORANG YANG BERINTERAKSI DENGAN ANDA DALAM SEHARI?', min_value=0, max_value=10, value=5)
+    SocialNetwork = st.selectbox('BIASANYA BERAPA BANYAK ORANG YANG BERINTERAKSI DENGAN ANDA DALAM SEHARI?', options=[0,1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -532,7 +570,7 @@ def page19():
         </div>
     """, unsafe_allow_html=True)
 
-    LostVacation = st.slider('BERAPA HARI BIASANYA ANDA HABISKAN UNTUK LIBURAN (PERJALANAN JAUH/LIBURAN TAHUNAN)?', min_value=0, max_value=10, value=5)
+    LostVacation = st.selectbox('BERAPA HARI BIASANYA ANDA HABISKAN UNTUK LIBURAN (PERJALANAN JAUH/LIBURAN TAHUNAN)?', options=[0,1,2,3,4,5,6,7,8,9,10])
     
     backCol,nextCol  = st.columns([1,1])
     with nextCol:
@@ -580,7 +618,18 @@ def page21():
         </div>
     """, unsafe_allow_html=True)
     
-    Donation = st.slider('SEBERAPA SERING ANDA MENYEDIAKAN WAKTU ATAU UANG ANDA UNTUK TUJUAN BAIK?', min_value=1, max_value=5, value=3)
+    Donation = st.radio('SEBERAPA SERING ANDA MENYEDIAKAN WAKTU ATAU UANG ANDA UNTUK TUJUAN BAIK?', options=["Sangat Jarang", "Jarang", "Kadang-Kadang", "Sering", "Sangat Sering"])
+
+    if Donation == "Sangat Jarang" :
+        Donation = 1
+    elif Donation == "Jarang" :
+        Donation = 2
+    elif Donation == "Kadang" :
+        Donation = 3
+    elif Donation == "Sering" :
+        Donation = 4
+    elif Donation == "Sangat Sering" :
+        Donation = 5
 
     FruitsVeggies = st.session_state.fruitsVeggies
     PlacesVisited = st.session_state.placesVisited
