@@ -50,7 +50,7 @@ def page0():
             <h1>STRESS LEVEL PREDICTION</h1>
         </div>
     """, unsafe_allow_html=True)
-    st.image("mental.png")
+    st.image("Mental.png")
     if st.button('Mulai', use_container_width=True):
         st.session_state.page_number = 1
         st.experimental_rerun()
